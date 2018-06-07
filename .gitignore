@@ -1,8 +1,8 @@
 *
 
-!lib/**
+!lib/**/*
 !.gitignore
 !pubspec.yaml
-!assets/**
+!assets/**/*
 !android/app/src/main/*
 !ios/Runner/Info.plist
