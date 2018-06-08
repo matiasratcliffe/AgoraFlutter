@@ -13,12 +13,17 @@ class BaseService {
       print("[ERROR] " + obj.toString());
   }
 
-  static void alert({BuildContext context, String title, String message}) {
+  static void alert(BuildContext context, String title, String message) {
     showDialog(context: context, builder: (BuildContext context) {
       return new AlertDialog(
         title: new Text(title),
         content: new Text(message),
       );
     });
+  }
+
+  static void dAlert(BuildContext context, String title, String message) { // Only display if dev
+    if (_dev)
+      BaseService.alert(context, title, message);
   }
 }
