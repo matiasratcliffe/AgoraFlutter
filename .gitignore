@@ -6,3 +6,5 @@ test
 *.iml
 *.md
 *.lock
+ios
+android
