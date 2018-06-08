@@ -1,4 +1,0 @@
-#Thu Jun 07 00:34:57 ART 2018
-base.0=/home/j3ster/movile/flutter/Agora/build/app/intermediates/transforms/dexMerger/debug/0
-path.0=classes.dex
-renamed.0=classes.dex
