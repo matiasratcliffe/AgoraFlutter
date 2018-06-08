@@ -1,0 +1,8 @@
+.idea
+build
+test
+.metadata
+.packages
+*.iml
+*.md
+*.lock

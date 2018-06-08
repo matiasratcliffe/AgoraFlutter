@@ -6,10 +6,55 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController userField;
-  TextEditingController userRepeatField;
-  TextEditingController passField;
-  TextEditingController passRepeatField;
+  TextEditingController userFieldController = new TextEditingController();
+  TextEditingController userRepeatFieldController = new TextEditingController();
+  TextEditingController passFieldController = new TextEditingController();
+  TextEditingController passRepeatFieldController = new TextEditingController();
+  Widget passRepeatField;
+  Widget userRepeatField;
+  bool isLoggingIn = true;
+
+  @override
+  void initState() {
+    super.initState();
+    this.isLoggingIn = true;
+    this.userRepeatField = new Column(
+      children: <Widget>[
+        new TextField(
+          controller: userFieldController,
+          decoration: new InputDecoration(
+            hintText: "Repeat User",
+            hintStyle: new TextStyle(color: Colors.grey),
+            border: new OutlineInputBorder(),
+          )
+        ),
+        new Padding(padding: new EdgeInsets.all(5.0))
+      ],
+    );
+    this.passRepeatField = new Column(
+      children: <Widget>[
+        new Padding(padding: new EdgeInsets.all(5.0)),
+        new TextField(
+          obscureText: true,
+          controller: passFieldController,
+          decoration: new InputDecoration(
+            hintText: "Repeat Password",
+            hintStyle: new TextStyle(color: Colors.grey),
+            border: new OutlineInputBorder(),
+          )
+        )
+      ]
+    );
+  }
+
+  @override
+  void dispose() {
+    userFieldController.dispose();
+    userRepeatFieldController.dispose();
+    passFieldController.dispose();
+    passRepeatFieldController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     new TextField(
-                      controller: ,
+                      controller: userFieldController,
                       decoration: new InputDecoration(
                         hintText: "User",
                         hintStyle: new TextStyle(color: Colors.grey),
@@ -45,14 +90,17 @@ class _LoginPageState extends State<LoginPage> {
                       )
                     ),
                     new Padding(padding: new EdgeInsets.all(5.0)),
+                    isLoggingIn ? new Container() : userRepeatField,
                     new TextField(
                       obscureText: true,
+                      controller: passFieldController,
                       decoration: new InputDecoration(
                         hintText: "Password",
                         hintStyle: new TextStyle(color: Colors.grey),
                         border: new OutlineInputBorder(),
                       )
                     ),
+                    isLoggingIn ? new Container() : passRepeatField,
                     new Padding(padding: new EdgeInsets.all(5.0)),
                     new RaisedButton(
                       color: Color(0xffCB1D00),
@@ -61,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     new Padding(padding: new EdgeInsets.all(5.0)),
                     new RaisedButton(
-                      child: new Text("Register"),
+                      child: new Text(isLoggingIn ? "Register" : "Log In"),
                       onPressed: (){}
                     )
                   ]
@@ -75,7 +123,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void submit() {
+    
+  }
 
+  void toggle() {
+    isLoggingIn = !isLoggingIn;
   }
 
 
