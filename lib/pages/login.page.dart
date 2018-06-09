@@ -8,46 +8,24 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => new _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
   TextEditingController userFieldController = new TextEditingController();
   TextEditingController userRepeatFieldController = new TextEditingController();
   TextEditingController passFieldController = new TextEditingController();
   TextEditingController passRepeatFieldController = new TextEditingController();
-  Widget passRepeatField;
-  Widget userRepeatField;
+  AnimationController repeatAnimationController;
+  Animation<double> repeatAnimation;
   bool isLoggingIn = true;
+  bool animations = false;
 
   @override
   void initState() {
     super.initState();
     this.isLoggingIn = true;
-    this.userRepeatField = new Column(
-      children: <Widget>[
-        new TextField(
-          controller: userRepeatFieldController,
-          decoration: new InputDecoration(
-            hintText: "Repeat User",
-            hintStyle: new TextStyle(color: Colors.grey),
-            border: new OutlineInputBorder(),
-          )  // InputDecoration
-        ), // TextField
-        new Padding(padding: new EdgeInsets.all(5.0))
-      ], // <Widget>[]
-    ); // Column
-    this.passRepeatField = new Column(
-      children: <Widget>[
-        new Padding(padding: new EdgeInsets.all(5.0)),
-        new TextField(
-          obscureText: true,
-          controller: passRepeatFieldController,
-          decoration: new InputDecoration(
-            hintText: "Repeat Password",
-            hintStyle: new TextStyle(color: Colors.grey),
-            border: new OutlineInputBorder(),
-          ) // InputDecoration
-        ) // TextField
-      ] // <Widget>[]
-    ); // Column
+    repeatAnimationController = new AnimationController(duration: new Duration(milliseconds: 200), vsync: this);
+    repeatAnimation = new CurvedAnimation(parent: repeatAnimationController, curve: Curves.easeIn);
+    repeatAnimation.addListener(() => this.setState((){}));
+    repeatAnimationController.forward();
   }
 
   @override
@@ -56,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
     userRepeatFieldController.dispose();
     passFieldController.dispose();
     passRepeatFieldController.dispose();
+    repeatAnimationController.dispose();
     super.dispose();
   }
 
@@ -84,26 +63,65 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    new TextField(
-                      controller: userFieldController,
-                      decoration: new InputDecoration(
-                        hintText: "User",
-                        hintStyle: new TextStyle(color: Colors.grey),
-                        border: new OutlineInputBorder()
-                      ) // InputDecoration
-                    ), // TextField
-                    new Padding(padding: new EdgeInsets.all(5.0)),
-                    isLoggingIn ? new Container() : userRepeatField,
-                    new TextField(
-                      obscureText: true,
-                      controller: passFieldController,
-                      decoration: new InputDecoration(
-                        hintText: "Password",
-                        hintStyle: new TextStyle(color: Colors.grey),
-                        border: new OutlineInputBorder(),
-                      ) // InputDecoration
-                    ), // TextField
-                    isLoggingIn ? new Container() : passRepeatField,
+                    new Column(
+                      children: <Widget>[
+                        new TextField(
+                          controller: userFieldController,
+                          decoration: new InputDecoration(
+                            hintText: "User",
+                            hintStyle: new TextStyle(color: Colors.grey),
+                            border: new OutlineInputBorder()
+                          ) // InputDecoration
+                        ), // TextField
+                        new Padding(padding: new EdgeInsets.all(5.0)),
+                        isLoggingIn ? new Container() : 
+                        new Container(
+                          height: 60.0 * repeatAnimation.value,
+                          width: 60.0 * repeatAnimation.value,
+                          child: new Column(
+                            children: <Widget>[
+                              new TextField(
+                                controller: userRepeatFieldController,
+                                decoration: new InputDecoration(
+                                  hintText: "Repeat User",
+                                  hintStyle: new TextStyle(color: Colors.grey),
+                                  border: new OutlineInputBorder(),
+                                )  // InputDecoration
+                              ) // TextField
+                            ] // <Widget>[]
+                          ) // Column
+                        ), // Container
+                        isLoggingIn ? new Container() : new Padding(padding: new EdgeInsets.all(5.0)),
+                        new TextField(
+                          obscureText: true,
+                          controller: passFieldController,
+                          decoration: new InputDecoration(
+                            hintText: "Password",
+                            hintStyle: new TextStyle(color: Colors.grey),
+                            border: new OutlineInputBorder(),
+                          ) // InputDecoration
+                        ), // TextField
+                        isLoggingIn ? new Container() : new Padding(padding: new EdgeInsets.all(5.0)),
+                        isLoggingIn ? new Container() :
+                        new Container(
+                          height: 60.0 * repeatAnimation.value,
+                          width: 60.0 * repeatAnimation.value,
+                          child: new Column(
+                            children: <Widget>[
+                              new TextField(
+                                obscureText: true,
+                                controller: passRepeatFieldController,
+                                decoration: new InputDecoration(
+                                  hintText: "Repeat Password",
+                                  hintStyle: new TextStyle(color: Colors.grey),
+                                  border: new OutlineInputBorder(),
+                                ) // InputDecoration
+                              ) // TextField
+                            ] // <Widget>[]
+                          ) // Colum
+                        ) // Container
+                      ] // <Widget>[]
+                    ), // Column
                     new Padding(padding: new EdgeInsets.all(5.0)),
                     new RaisedButton(
                       color: Color(0xffCB1D00),
@@ -129,27 +147,24 @@ class _LoginPageState extends State<LoginPage> {
     if (!isLoggingIn) {
       //do the checking?
     }
-    var res = await HttpService.post({'email': userFieldController.text, 'password': passFieldController.text});
     try {
-      print(res.statusCode);
-      print(res);
-      print('----------------------------------------');
-      print(res.headers);
-      print('----------------------------------------');
-      print(res.body);
-    } catch(e){
+      var res = await HttpService.post({'email': userFieldController.text, 'password': passFieldController.text});
+      if (res.statusCode != 200)
+        throw "error";
+      res.headers['x-auth'];
+    } catch(e) {
       BaseService.dAlert(context, "Error", e.toString());
     }
   }
 
   void toggle() {
     isLoggingIn = !isLoggingIn;
+    repeatAnimationController.reset();
+    repeatAnimationController.forward();
     if (isLoggingIn)
       HttpService.defaultUrl = "https://glacial-refuge-10252.herokuapp.com/users/login";
     else
       HttpService.defaultUrl = "https://glacial-refuge-10252.herokuapp.com/users";
     this.setState((){});
   }
-
-
 }

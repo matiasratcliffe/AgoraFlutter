@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class BaseService {
   static bool _dev = true;
+  static get dev => _dev;
 
   static void log(Object obj) {
     if (BaseService._dev)
