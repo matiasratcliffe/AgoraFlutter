@@ -5,9 +5,9 @@ import '../../services/http.service.dart';
 import '../../services/base.service.dart';
 
 import '../home/home.page.dart';
-import 'background.component.dart';
-import 'button.component.dart';
-import 'field.component.dart';
+import './components/background.component.dart';
+import './components/button.component.dart';
+import './components/field.component.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
+  TextEditingController dniFieldController = new TextEditingController();
   TextEditingController userFieldController = new TextEditingController();
   TextEditingController userRepeatFieldController = new TextEditingController();
   TextEditingController passFieldController = new TextEditingController();
@@ -32,6 +33,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
   @override
   void dispose() {
+    dniFieldController.dispose();
     userFieldController.dispose();
     userRepeatFieldController.dispose();
     passFieldController.dispose();
@@ -51,6 +53,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
             new Padding(padding: new EdgeInsets.all(10.0))
           ]): new Column(
           children: BaseService.addPadding(5.0, <Widget>[
+            isLoggingIn ? new Container() : new FieldComponent(controller: dniFieldController, hintText: "DNI"),
             new FieldComponent(controller: userFieldController, hintText: "User"),
             isLoggingIn ? new Container() : new FieldComponent(controller: userRepeatFieldController, hintText: "Repeat User"),
             new FieldComponent(obscureText: true, controller: passFieldController, hintText: "Password"),
@@ -73,18 +76,19 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   }
 
   void submit() async {
-    dynamic res;
+    dynamic res; // scope declaration
     isLoading = true;
     this.setState((){});
     if (!isLoggingIn) {
       //do the checking?
     }
     try {
-      res = await HttpService.post({'email': userFieldController.text, 'password': passFieldController.text});
+      var data = {'email': userFieldController.text, 'password': passFieldController.text};
+      if (!isLoggingIn) data['id'] = dniFieldController.text;
+      res = await HttpService.post(data);
       if (res.statusCode != 200)
         throw "Recieved status code: ${res.statusCode.toString()}";
-      res.headers['x-auth'];
-      Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomePage()));
+      Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomePage(res.headers['x-auth'])));
     } on TimeoutException {
       BaseService.dAlert(context, 'Timeout', 'Submit timed out!');
     } catch(e) {

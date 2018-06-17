@@ -19,17 +19,17 @@ class _BackgroundComponentState extends State<BackgroundComponent> with SingleTi
   Widget build(BuildContext context) {
     return new SafeArea(
       child: new Material(
-        child: new Container(
+        child: new Container( // For the background
           decoration: new BoxDecoration(
             image: new DecorationImage(
               image: new AssetImage(widget.background),
               fit: BoxFit.cover
             ) // DecorationImage
           ), // BoxDecoration
-          child: new Column(
+          child: new Column( // To center content (Container expands to maximum size)
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Container(
+              new Container( // For content border and background
                 margin: new EdgeInsets.symmetric(horizontal: 35.0),
                 padding: new EdgeInsets.all(20.0),
                 decoration: new BoxDecoration(
