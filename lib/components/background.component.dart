@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+/// Takes a list of elements, arranges them in a centered colum, and sets the selected asset as background
 class BackgroundComponent extends StatefulWidget {
   final String background;
   final List<Widget> _children = new List<Widget>();
+  /// Takes a list of elements, arranges them in a centered colum, and sets the selected asset as background
   BackgroundComponent({this.background, List<Widget> children}) {
     children.forEach((element) {
       this._children.add(new Padding(padding: new EdgeInsets.all(5.0)));
@@ -36,11 +38,13 @@ class _BackgroundComponentState extends State<BackgroundComponent> with SingleTi
                   borderRadius: new BorderRadius.all(new Radius.circular(5.0)),
                   color: Color(0xffF0F0F0)
                 ), // BoxDecoration
-                child: new Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.min,
-                  children: widget._children
-                ) // Column
+                child: new Form(
+                  child: new Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: widget._children
+                  ) // Column
+                ) // Form
               ) // Container
             ] // <Widget>[]
           ) // Column

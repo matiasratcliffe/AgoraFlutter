@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../services/base.service.dart';
 import '../../components/tabapp.component.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,6 +29,6 @@ class _HomePageState extends State<HomePage> {
     },
     // Drawer mit tags
     drawer: null
-    );
+    ); // TabAppComponent
   }
 }

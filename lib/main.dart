@@ -6,31 +6,33 @@ import './pages/home/home.page.dart';
 
 import './services/base.service.dart';
 
-void main() => runApp(new MyApp());
-
+bool _rememberUser = false;
 String _token = '';
 
-class MyApp extends StatelessWidget {
-
-  _rememberPass() {
-    try {
-      if (FileSystemEntity.isFileSync('remembertoken')) {
-        File file = new File('remembertoken');
-        
-      }
-      File file = new File('remembertoken');
-      file.writeAsStringSync('contents');
-    } catch(e) {
-      BaseService.log(e);
+void main() async {
+  String filePath = (await BaseService.appDir).uri.path + 'remembertoken';
+  if (FileSystemEntity.isFileSync(filePath)) {
+    File remembertoken = new File(filePath);
+    _token = remembertoken.readAsStringSync();
+    BaseService.log('Token Found: ' + _token);
+    //check mit server if token is valid
+    {
+      BaseService.log('Token seems valid!');
+      //_rememberUser = true;
     }
-    return false;
+  } else {
+    BaseService.log('No token found!');
   }
+  runApp(new MyApp());
+}
+
+class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     Widget homePage;
 
-    if (_rememberPass())
+    if (!_rememberUser)
       homePage = new LoginPage();
     else
       homePage = new HomePage(_token);

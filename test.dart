@@ -1,10 +1,9 @@
-import 'dart:io';
-
-main(List<String> args) {
-  //File file = new File('myfile');
-  Directory directory = new Directory('.');
-  directory.list().forEach((e) {
-    print(e);
-  });
-
+main() {
+   dynamic isNumeric(String string) {
+    try {
+      int.parse(string);
+      return true;
+    } catch(e) {return false;}
+  }
+  print(isNumeric('-d9'));
 }

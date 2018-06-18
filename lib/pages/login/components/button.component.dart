@@ -12,13 +12,12 @@ class ButtonComponent extends StatefulWidget {
 }
 
 class _ButtonComponentState extends State<ButtonComponent> with SingleTickerProviderStateMixin {
-
   @override
   Widget build(BuildContext context) {
     return new RaisedButton(
       onPressed: widget.disabled ? null : widget.onPressed,
       child: widget.child,
       color: widget.disabled ? Color(0): widget.color,
-    );
+    ); //RaisedButton
   }
 }
