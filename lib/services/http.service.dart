@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:async';
 
 class HttpService {
-  static int timeout = 5000;
+  static int timeout = 10000;
   static String defaultUrl = "";
   static Map<String, String> defaultHeaders = {
     "Content-Type": "application/json"

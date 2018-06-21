@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
       'Feed': [
         RaisedButton(
           child: Text('Button'),
-          onPressed: () {},
+          onPressed: () {}
         )
       ]
     },
