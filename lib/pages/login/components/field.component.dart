@@ -1,9 +1,15 @@
+// Flutter requirements
 import 'package:flutter/material.dart';
 
+// Defined a String callback type to set as the 'validate' attribute of the textfield
 typedef String _ValidatorFunc(String input);
 
+/// Briefly extending [TextEditingController] 
 class TextFieldController extends TextEditingController {
+  
+  /// Flag to determine the styling that should be applied to the subordinated [TextField]
   bool invalidValue = false;
+
   TextFieldController() : super();
 
   /// Resets the field's condition
@@ -13,33 +19,38 @@ class TextFieldController extends TextEditingController {
   }
 }
 
+/// Wrapping class for the [TextFormField]
+/// * Adding animation support
+/// * Adding [invalidValue] state
 class FieldComponent extends StatefulWidget {
-  final String hintText;
-  final bool obscureText;
-  final FocusNode focusNode;
-  final _ValidatorFunc validator;
-  final TextFieldController controller;
+  final String hintText; // Grayed out text to be shown when field is empty
+  final bool obscureText; // For passwords *****
+  final FocusNode focusNode; // The FocusNode object to control the fields focus state
+  final _ValidatorFunc validator; // Validator function to be executed during form validation
+  final TextFieldController controller; // The Controller object to control the fields value
+
   FieldComponent({this.focusNode, this.validator, this.controller, this.hintText, this.obscureText=false});
 
   @override
   _FieldComponentState createState() => new _FieldComponentState();
 }
 
+/// The State of a [FieldComponent]
 class _FieldComponentState extends State<FieldComponent> with SingleTickerProviderStateMixin {
-  AnimationController fieldAnimationController;
-  Animation<double> fieldAnimation;
+  AnimationController fieldAnimationController; // AnimationController [sets anmation time, and fires it up]
+  Animation<double> fieldAnimation; // Animation value [sets animation style]
 
   @override
   void initState() {
     super.initState();
-    fieldAnimationController = new AnimationController(duration: new Duration(milliseconds: 250), vsync: this);
-    fieldAnimation = new CurvedAnimation(parent: fieldAnimationController, curve: Curves.easeIn);
-    fieldAnimation.addListener(() => this.setState((){}));
-    fieldAnimationController.forward();
+    fieldAnimationController = new AnimationController(duration: new Duration(milliseconds: 250), vsync: this); // Set animation time
+    fieldAnimation = new CurvedAnimation(parent: fieldAnimationController, curve: Curves.easeIn); // Set animation style
+    fieldAnimation.addListener(() => this.setState((){})); // MUST DO for all animations, adds a Listener (executed everytime the animations value changes), which resets the state for rebuilding the enclosing widget (FieldComponent) with the apropiate values
+    fieldAnimationController.forward(); // Initial animation fire up
   }
 
   @override
-  void dispose() {
+  void dispose() { // To be executed once the component is destroyed (Free resources, avoid crash)
     fieldAnimationController.dispose();
     super.dispose();
   }
@@ -47,8 +58,9 @@ class _FieldComponentState extends State<FieldComponent> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     return new Container(
-      height: 61.0 * fieldAnimation.value,
-      decoration: new BoxDecoration(
+      height: 61.0 * fieldAnimation.value, // Height to be changed during animation
+   
+      decoration: new BoxDecoration( // BorderDecoration that will change according to the validity of the fields value 
         boxShadow: widget.controller.invalidValue ? [new BoxShadow(color: Colors.yellow[50])] : null,
         border: new Border.all(
           color: widget.focusNode.hasFocus ? Colors.blue : (widget.controller.invalidValue ? Colors.red : Colors.black),
@@ -56,6 +68,7 @@ class _FieldComponentState extends State<FieldComponent> with SingleTickerProvid
         ),
         borderRadius: new BorderRadius.all(new Radius.circular(5.0))
       ),
+   
       child: new Column(
         children: <Widget>[
           new TextFormField(
@@ -66,7 +79,7 @@ class _FieldComponentState extends State<FieldComponent> with SingleTickerProvid
             decoration: new InputDecoration(
               hintText: widget.hintText,
               hintStyle: new TextStyle(color: Colors.grey),
-              border: new OutlineInputBorder(),
+              border: new OutlineInputBorder(), // Change the default's horrendous underline styling for a more tolerable OutlineBorder
             ),  // InputDecoration
             validator: widget.validator
           ) // TextField
