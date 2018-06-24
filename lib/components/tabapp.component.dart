@@ -1,37 +1,54 @@
 // Flutter requierements
 import 'package:flutter/material.dart';
 
-// Services
-import '../services/base.service.dart';
-
 /// Creates a simple TabComponent app, associating each element in the [content] Map, with a Tab-Page pair, mapping the String keys of the map as buttons in the [AppBar], and the elements of the corresponding Widget List to the children of a preformatted [Column]
 class TabAppComponent extends StatefulWidget {
   
   /// The Scaffold's [Drawer] widget, if any
   final Drawer drawer;
 
-  /// A Map connecting a Tab's name with its Widget array
-  final Map<String, List<Widget>> content;
+  /// A Map connecting a Tab with its Widget array
+  final Map<Widget, Widget> content;
 
-  TabAppComponent(this.content, {this.drawer});
+  /// Flag indicating the position of the [AppBar] - Default is Top => [false]
+  final bool bottomBar;
+
+  /// A title to show on the top bar
+  final Widget title;
+
+  TabAppComponent({@required this.content, this.drawer, this.bottomBar=false, this.title});
 
   @override
-  _TabAppComponentState createState() => _TabAppComponentState();
+  _TabAppComponentState createState() => _TabAppComponentState(this.content, this.title, this.bottomBar);
 }
 
 /// The State of a [TabAppComponent]
-class _TabAppComponentState extends State<TabAppComponent> {
+class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProviderStateMixin {
 
-  /// The currently selected tab's [Widget] array
-  List<Widget> _selected;
+  /// The controller for the [TabBar] in case [bottomBar] is enabled
+  TabController controller;
 
-  @override
-  void initState() {
-    super.initState();
-    // Setting a default tab to show
-    if (widget.content != null && widget.content.keys.length > 0) {
-      _selected = widget.content[widget.content.keys.elementAt(0)];
-      return;
+  /// The [TabBar] to be used if [bottomBar] is enabled
+  TabBar tabBar; // Auto-initializes to null
+
+  /// The [AppBar] to be used if [bottomBar] is disabled
+  AppBar appBar; // Auto-initializes to null
+
+  _TabAppComponentState(Map<Widget,Widget> content, Widget titleWidget, bool bottomBar) : super() {
+    controller = new TabController(length: content.length, vsync: this); // To control the tab view [never used directly, but rather passed as a binding reference to the tabs' constructors]
+    tabBar = new TabBar( // This is the definitive bar, no matter where I choose to put it later
+      controller: controller,
+      tabs: content.keys.toList()
+    ); // TabBar
+    if (!bottomBar) { // If NavBar is on top
+      appBar = new AppBar(
+        title: titleWidget ?? tabBar,
+        bottom: titleWidget == null ? null : tabBar
+      ); // AppBar
+    } else { // If NavBar is on the bottom
+      // If the implementer provided a widget to serve as a title, create an AppBar consisting exclusivelly of it, if not, no appbar
+      if (titleWidget != null)
+        appBar = new AppBar(title: titleWidget);
     }
   }
   
@@ -39,45 +56,21 @@ class _TabAppComponentState extends State<TabAppComponent> {
   Widget build(BuildContext context) {
     return new SafeArea( // Space below the phone's status bar
       child: new Scaffold(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.blueAccent, // Theme color
         
-        appBar: new AppBar(
-          title: new Row( // Display tab titles horizontally
-            mainAxisSize: MainAxisSize.max, // Expand to ocupy all tab-bar
-            crossAxisAlignment: CrossAxisAlignment.stretch, // Expand vertically
-            children: _generateTabs(widget.content) // Generate the tabs from the [content] map
-          ) // Row
-        ), // AppBar
-        
+        appBar: appBar, // If its null, it ignores it
+
+        bottomNavigationBar: widget.bottomBar ? tabBar : null, // If not bottomBar, it ignores it (evaluates to null)
+                  
         drawer: widget.drawer, // The Scaffold's [Drawer] widget, if any
 
-        body: new Container(
-          color: Colors.white, // Background color
-          padding: new EdgeInsets.all(20.0), // Padding for the content of each tab
-          child: new Column( // Arange the Widget list of of each tab of the content map, vertically
-            crossAxisAlignment: CrossAxisAlignment.stretch, // Expand 
-            children: _selected, // Show only the contents of the selected tab at a given state
-          ) // Column
-        ) // Container
+        body: new TabBarView( // Regardles of the position of the tabBar, the contents wont change
+          controller: controller,
+          children: widget.content.values.toList()
+        ) // TabBarView
+
       ) // Scaffold
     ); // SafeArea
-  }
-
-  /// Takes a String-WidgetList Map and generates the necesary tabs, binding the [_selected] attribute to the List of the selected tab
-  List<Widget> _generateTabs(Map<String,List<Widget>> content) {
-    // List of buttons (these are the tabs)
-    List<Widget> buttons = new List<Widget>();
-    content.forEach((key, val) {
-      buttons.add(new FlatButton(
-        child: new Text(key), // Set the name of the tab as the buttons text
-        onPressed: () => this.setState(() { // Runs every time a tab is selected
-          BaseService.log(key); // Log the name of the selected tab
-          _selected = val != null ? val : [new Text('Null Value')]; // Sets the _selected attribut accordingly (if not null, to avoid errors)
-        }) // onPressed
-      )); // FlatButton
-    }); // forEach
-
-    return buttons;
   }
 
 }

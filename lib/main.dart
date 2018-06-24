@@ -5,7 +5,6 @@ import 'dart:convert';
 // Flutter requirements
 import 'package:flutter/material.dart';
 
-
 // Pages that can be directly instantiated by [MyApp]
 import './pages/login/login.page.dart';
 import './pages/home/home.page.dart';
@@ -41,6 +40,8 @@ void main() async {
     } else { // FILE INEXISTENT!
       BaseService.log('No token found!');
     }
+  } on FormatException {
+    BaseService.log('Token file\'s format is invalid');
   } catch (e) { // In case the file had invalid contents - (ex: not json)
     BaseService.log('Error retrieving token: ${e.toString()}');
   }
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget homePage; // Depending on the flags set by the main function, this will be LoginPage or HomePage
 
-    if (!_rememberUser)
+    if (_rememberUser)
       homePage = new LoginPage();
     else
       homePage = new HomePage(_token);

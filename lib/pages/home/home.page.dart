@@ -4,6 +4,13 @@ import 'package:flutter/material.dart';
 // General components to be used
 import '../../components/tabapp.component.dart';
 
+// Sub pages to be used
+import './buscador/buscador.page.dart';
+import './trending/trending.page.dart';
+import './profile/profile.page.dart';
+import './feed/feed.page.dart';
+import './tags/tags.page.dart';
+
 /// General tab-like page to be displayed after successful login
 class HomePage extends StatefulWidget {
   
@@ -20,26 +27,26 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {  
   @override
   Widget build(BuildContext context) {
-    return new TabAppComponent({
-      // Manage profiledata, tags, logout
-      'Profile': [
-        Text('khkhk')
-      ],
+    double iconSize = 40.0;
+    
+    return new TabAppComponent(
+      bottomBar: true,
+      content: {
+        // [Profile] Manage profiledata, tags, logout
+        new Icon(Icons.person, size: iconSize): new ProfilePage(),
 
-      // New projects, suscribed projects updates, filter by...
-      'Feed': [
-        RaisedButton(
-          child: Text('Button'),
-          onPressed: () {}
-        )
-      ],
+        // [Tags] New projects that have one of your suscribed tags  
+        new Icon(Icons.tags, size: iconSize): new TagsPage(),
 
-      'Hot': [],
+        // [Feed] New projects, suscribed projects updates, filter by...
+        new Icon(Icons.assignment, size: iconSize): new FeedPage(),
 
-      'Buscar': []
-    },
-    // Drawer mit tags
-    drawer: null
+        // [Trending] Approved/rejected history, and popular projects
+        new Icon(Icons.star, size: iconSize): new TrendingPage(),
+
+        // [Buscador] Buscar proyectos por tag/titulo/numero
+        new Icon(Icons.search, size: iconSize): new BuscadorPage(),
+      }
     ); // TabAppComponent
   }
 }
