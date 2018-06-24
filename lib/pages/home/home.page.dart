@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
         new Icon(Icons.tags, size: iconSize): new TagsPage(),
 
         // [Feed] New projects, suscribed projects updates, filter by...
-        new Icon(Icons.assignment, size: iconSize): new FeedPage(),
+        new Icon(Icons.cabinet, size: iconSize): new FeedPage(),
 
         // [Trending] Approved/rejected history, and popular projects
         new Icon(Icons.star, size: iconSize): new TrendingPage(),

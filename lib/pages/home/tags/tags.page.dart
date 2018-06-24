@@ -11,8 +11,13 @@ class TagsPage extends StatefulWidget {
 class _TagsPageState extends State<TagsPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return new Container(
+      color: Colors.white,
+      child: new Column(
+        children: <Widget>[
+          new Text('data')
+        ],
+      ),
     );
   }
 }

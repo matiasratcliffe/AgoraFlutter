@@ -27,3 +27,4 @@ flutter:
     - family:  Brankic1979
       fonts:
        - asset: assets/fonts/Brankic1979-tags.ttf
+       - asset: assets/fonts/Brankic1979-cabinet.ttf

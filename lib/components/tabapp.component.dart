@@ -29,17 +29,21 @@ class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProv
   TabController controller;
 
   /// The [TabBar] to be used if [bottomBar] is enabled
-  TabBar tabBar; // Auto-initializes to null
+  Widget tabBar; // Auto-initializes to null
 
   /// The [AppBar] to be used if [bottomBar] is disabled
   AppBar appBar; // Auto-initializes to null
 
   _TabAppComponentState(Map<Widget,Widget> content, Widget titleWidget, bool bottomBar) : super() {
     controller = new TabController(length: content.length, vsync: this); // To control the tab view [never used directly, but rather passed as a binding reference to the tabs' constructors]
-    tabBar = new TabBar( // This is the definitive bar, no matter where I choose to put it later
-      controller: controller,
-      tabs: content.keys.toList()
-    ); // TabBar
+    tabBar = new Container( // This is the definitive bar, no matter where I choose to put it later
+      padding: new EdgeInsets.symmetric(vertical: 5.0),
+      child: TabBar(
+        controller: controller,
+        tabs: content.keys.toList()
+      ) // TabBar
+    ); // Container
+
     if (!bottomBar) { // If NavBar is on top
       appBar = new AppBar(
         title: titleWidget ?? tabBar,

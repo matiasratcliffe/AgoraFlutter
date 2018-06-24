@@ -11,8 +11,13 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return new Container(
+      color: Colors.white,
+      child: new Column(
+        children: <Widget>[
+          new Text('data')
+        ],
+      ),
     );
   }
 }
