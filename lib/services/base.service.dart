@@ -75,7 +75,7 @@ class BaseService {
       if (!BaseService._empty(aux[i])) {
         ret.add(aux[i]);
         if (i < aux.length - 1)
-          ret.add(new Padding(padding: new EdgeInsets.all(padding)));
+          ret.add(Padding(padding: EdgeInsets.all(padding)));
       }
     }
     return ret;
@@ -85,7 +85,7 @@ class BaseService {
   /// Pops up a dialog with [title] and [message]
   static void alert(BuildContext context, String title, String message) {
     showDialog(context: context, builder: (BuildContext context) {
-      return new AlertComponent(title, message); // Uses the component imported above
+      return AlertComponent(title, message); // Uses the component imported above
     });
   }
 
@@ -93,7 +93,7 @@ class BaseService {
   static Future<void> dialogAsk(BuildContext context, String title, String message) async {
     _dialogAnswer = null; // Sets the dialog answer to null (also undefined)
     await showDialog(context: context, builder: (BuildContext context) {
-      return new AskComponent(title, message,
+      return AskComponent(title, message,
         // Function to be executed if the user selects YES
         yesFunc: () {
           BaseService.log('The user pressed YES');

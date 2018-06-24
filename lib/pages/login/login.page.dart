@@ -87,16 +87,16 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    return new BackgroundComponent(
+    return BackgroundComponent(
       background: "assets/images/background.png",
       children: <Widget>[
 
         // If the isLoading flag is true, only build the CircularProgressIndicator
         isLoading ? new Column(
           children: <Widget>[
-            new Padding(padding: new EdgeInsets.all(10.0)),
+            new Padding(padding: EdgeInsets.all(10.0)),
             new CircularProgressIndicator(strokeWidth: 5.0),
-            new Padding(padding: new EdgeInsets.all(10.0))
+            new Padding(padding: EdgeInsets.all(10.0))
           ]
         ): 
         // If not, build the whole form
@@ -136,14 +136,14 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
         new ButtonComponent(
           disabled: isLoading || (disableSubmit && !isLoggingIn), // Disabled if Loading, or if its in register mode and disasbleSubmit is on (which means there is an invalid/incomplete field)
           color: Color(0xffCB1D00), // Redish
-          child: new Text("SUBMIT", style: new TextStyle(color: isLoading ? null : Colors.white)),
+          child: Text("SUBMIT", style: TextStyle(color: isLoading ? null : Colors.white)),
           onPressed: this.submit
         ), // ButtonComponent
 
         // Switch form Button
         new ButtonComponent(
           disabled: isLoading, // Only disable if Loading
-          child: new Text(isLoggingIn ? "Register" : "Log In"),
+          child: Text(isLoggingIn ? "Register" : "Log In"),
           onPressed: this.toggle
         ) // ButtonComponent
 

@@ -37,9 +37,9 @@ class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProv
   _TabAppComponentState(Map<Widget,Widget> content, Widget titleWidget, bool bottomBar) : super() {
     controller = new TabController(length: content.length, vsync: this); // To control the tab view [never used directly, but rather passed as a binding reference to the tabs' constructors]
     tabBar = new Container( // This is the definitive bar, no matter where I choose to put it later
-      padding: new EdgeInsets.symmetric(vertical: 5.0), // Distance between icons and bottom of phone
+      padding: EdgeInsets.symmetric(vertical: 5.0), // Distance between icons and bottom of phone
       child: TabBar( 
-        indicatorPadding: new EdgeInsets.only(left: 20.0, right: 20.0, bottom: -1.0), // Reduce the indicator underline's horizontal length
+        indicatorPadding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: -1.0), // Reduce the indicator underline's horizontal length
         indicatorColor: Color(0xff11BBAB), // no estoy seguro de esto WIP
         controller: controller,
         tabs: content.keys.toList()
@@ -60,8 +60,8 @@ class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProv
   
   @override
   Widget build(BuildContext context) {
-    return new SafeArea( // Space below the phone's status bar
-      child: new Scaffold(
+    return SafeArea( // Space below the phone's status bar
+      child: Scaffold(
         backgroundColor: Color(0xff11BBAB), // Theme color
         
         appBar: appBar, // If its null, it ignores it
@@ -70,7 +70,7 @@ class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProv
                   
         drawer: widget.drawer, // The Scaffold's [Drawer] widget, if any
 
-        body: new TabBarView( // Regardles of the position of the tabBar, the contents wont change
+        body: TabBarView( // Regardles of the position of the tabBar, the contents wont change
           controller: controller,
           children: widget.content.values.toList()
         ) // TabBarView

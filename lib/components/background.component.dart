@@ -12,7 +12,7 @@ class BackgroundComponent extends StatefulWidget {
 
   BackgroundComponent({this.background, List<Widget> children}) {
     children.forEach((element) {
-      this._children.add(new Padding(padding: new EdgeInsets.all(5.0)));
+      this._children.add(Padding(padding: EdgeInsets.all(5.0)));
       this._children.add(element);
     });
   }
@@ -25,28 +25,28 @@ class BackgroundComponent extends StatefulWidget {
 class _BackgroundComponentState extends State<BackgroundComponent> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return new SafeArea(
-      child: new Material(
-        child: new Container( // For the background image
-          decoration: new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage(widget.background),
+    return SafeArea(
+      child: Material(
+        child: Container( // For the background image
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(widget.background),
               fit: BoxFit.cover
             ) // DecorationImage
           ), // BoxDecoration
 
-          child: new Column( // To center the content (The Container below will expand to maximum size, so a Restrictive enclosing object, like this Column, prevents that)
+          child: Column( // To center the content (The Container below will expand to maximum size, so a Restrictive enclosing object, like this Column, prevents that)
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new Container( // For content border and background color
-                margin: new EdgeInsets.symmetric(horizontal: 35.0), // Side space
-                padding: new EdgeInsets.all(20.0), // Inwards space
-                decoration: new BoxDecoration( // For content border and background color
-                  borderRadius: new BorderRadius.all(new Radius.circular(5.0)),
+                margin: EdgeInsets.symmetric(horizontal: 35.0), // Side space
+                padding: EdgeInsets.all(20.0), // Inwards space
+                decoration: BoxDecoration( // For content border and background color
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   color: Color(0xffF0F0F0)
                 ), // BoxDecoration
-                child: new Form(
-                  child: new Column( // Arrange the elements of the List passed to the constructor, vertically
+                child: Form(
+                  child: Column( // Arrange the elements of the List passed to the constructor, vertically
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisSize: MainAxisSize.min,
                     children: widget._children

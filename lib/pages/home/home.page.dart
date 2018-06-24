@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     double iconSize = 40.0;
     
-    return new TabAppComponent(
+    return TabAppComponent(
       bottomBar: true,
       content: {
         // [Profile] Manage profiledata, tags, logout

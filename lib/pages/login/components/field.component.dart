@@ -57,29 +57,29 @@ class _FieldComponentState extends State<FieldComponent> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       height: 61.0 * fieldAnimation.value, // Height to be changed during animation
    
-      decoration: new BoxDecoration( // BorderDecoration that will change according to the validity of the fields value 
-        boxShadow: widget.controller.invalidValue ? [new BoxShadow(color: Colors.yellow[50])] : null,
-        border: new Border.all(
+      decoration: BoxDecoration( // BorderDecoration that will change according to the validity of the fields value 
+        boxShadow: widget.controller.invalidValue ? [BoxShadow(color: Colors.yellow[50])] : null,
+        border: Border.all(
           color: widget.focusNode.hasFocus ? Colors.blue : (widget.controller.invalidValue ? Colors.red : Colors.black),
           width: 1.0 
         ),
-        borderRadius: new BorderRadius.all(new Radius.circular(5.0))
+        borderRadius: BorderRadius.all(Radius.circular(5.0))
       ),
    
-      child: new Column(
+      child: Column(
         children: <Widget>[
           new TextFormField(
             autocorrect: false,
             focusNode: widget.focusNode,
             obscureText: widget.obscureText,
             controller: widget.controller,
-            decoration: new InputDecoration(
+            decoration: InputDecoration(
               hintText: widget.hintText,
-              hintStyle: new TextStyle(color: Colors.grey),
-              border: new OutlineInputBorder(), // Change the default's horrendous underline styling for a more tolerable OutlineBorder
+              hintStyle: TextStyle(color: Colors.grey),
+              border: OutlineInputBorder(), // Change the default's horrendous underline styling for a more tolerable OutlineBorder
             ),  // InputDecoration
             validator: widget.validator
           ) // TextField
