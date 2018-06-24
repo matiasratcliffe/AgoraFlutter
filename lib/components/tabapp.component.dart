@@ -37,8 +37,10 @@ class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProv
   _TabAppComponentState(Map<Widget,Widget> content, Widget titleWidget, bool bottomBar) : super() {
     controller = new TabController(length: content.length, vsync: this); // To control the tab view [never used directly, but rather passed as a binding reference to the tabs' constructors]
     tabBar = new Container( // This is the definitive bar, no matter where I choose to put it later
-      padding: new EdgeInsets.symmetric(vertical: 5.0),
-      child: TabBar(
+      padding: new EdgeInsets.symmetric(vertical: 5.0), // Distance between icons and bottom of phone
+      child: TabBar( 
+        indicatorPadding: new EdgeInsets.only(left: 20.0, right: 20.0, bottom: -1.0), // Reduce the indicator underline's horizontal length
+        indicatorColor: Color(0xff11BBAB), // no estoy seguro de esto WIP
         controller: controller,
         tabs: content.keys.toList()
       ) // TabBar
@@ -60,7 +62,7 @@ class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProv
   Widget build(BuildContext context) {
     return new SafeArea( // Space below the phone's status bar
       child: new Scaffold(
-        backgroundColor: Colors.blueAccent, // Theme color
+        backgroundColor: Color(0xff11BBAB), // Theme color
         
         appBar: appBar, // If its null, it ignores it
 
