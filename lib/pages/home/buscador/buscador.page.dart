@@ -11,11 +11,37 @@ class BuscadorPage extends StatefulWidget {
 class _BuscadorPageState extends State<BuscadorPage> {
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
+      padding: EdgeInsets.all(40.0),
       color: Colors.white,
-      child: new Column(
+      child: Column(
         children: <Widget>[
-          new Text('data')
+          new Row(
+            children: <Widget>[
+              new Flexible(
+                child: TextField(
+                  autofocus: true,
+                  autocorrect: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.horizontal(left: Radius.circular(5.0))
+                    )
+                  ),
+                )
+              ),
+              new Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.blue, width: 2.0),
+                  borderRadius: BorderRadius.horizontal(right: Radius.circular(5.0))
+                ),
+                child: IconButton(
+                  icon: Icon(Icons.search),
+                  iconSize: 39.0,
+                  onPressed: (){},
+                )
+              )
+            ]
+          )
         ],
       ),
     );

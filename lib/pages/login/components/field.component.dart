@@ -63,7 +63,7 @@ class _FieldComponentState extends State<FieldComponent> with SingleTickerProvid
       decoration: BoxDecoration( // BorderDecoration that will change according to the validity of the fields value 
         boxShadow: widget.controller.invalidValue ? [BoxShadow(color: Colors.yellow[50])] : null,
         border: Border.all(
-          color: widget.focusNode.hasFocus ? Colors.blue : (widget.controller.invalidValue ? Colors.red : Colors.black),
+          color: widget.focusNode.hasFocus ? Colors.blue : (widget.controller.invalidValue ? Colors.red : Color(0xff11BBAB)),
           width: 1.0 
         ),
         borderRadius: BorderRadius.all(Radius.circular(5.0))

@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
         // SUBMIT Button
         new ButtonComponent(
           disabled: isLoading || (disableSubmit && !isLoggingIn), // Disabled if Loading, or if its in register mode and disasbleSubmit is on (which means there is an invalid/incomplete field)
-          color: Color(0xffCB1D00), // Redish
+          color: Color(0xff11BBAB),//Color(0xffCB1D00), // Redish
           child: Text("SUBMIT", style: TextStyle(color: isLoading ? null : Colors.white)),
           onPressed: this.submit
         ), // ButtonComponent
@@ -171,7 +171,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       }
       
       // Navigate to the HomePage with the recieved x-auth token and deletes the LoginPage from the route stack (prevening accidental logouts)
-      Navigator.pushAndRemoveUntil(context, new MaterialPageRoute(builder: (context) => new HomePage(res.headers['x-auth'])), (Route route) => route == null);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage(res.headers['x-auth'])), (route) => route == null);
     } on TimeoutException { // If the request timed out
       BaseService.dAlert(context, 'Timeout', 'Submit timed out!');
     } catch(e) {

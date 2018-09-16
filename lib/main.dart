@@ -19,6 +19,7 @@ bool _rememberUser = false;
 /// Buffer for the token, if any, to be passed to the [HomePage] constructor
 String _token = '';
 
+
 /// Main function
 void main() async {  
   try {
@@ -52,16 +53,16 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Widget homePage; // Depending on the flags set by the main function, this will be LoginPage or HomePage
+    Widget startPage; // Depending on the flags set by the main function, this will be LoginPage or HomePage
 
-    if (_rememberUser)
-      homePage = new LoginPage();
-    else
-      homePage = new HomePage(_token);
+    if (!_rememberUser) // If there is no valid saved token
+      startPage = new LoginPage();
+    else // If there is one
+      startPage = new HomePage(_token);
     
     return MaterialApp( // MaterialApp wrapper
       title: 'Agora', // The title presented to the phones app navigator
-      home: homePage // The main Widget to redirect to (default)
+      home: startPage // The main Widget to redirect to (default)
     );
   }
 }

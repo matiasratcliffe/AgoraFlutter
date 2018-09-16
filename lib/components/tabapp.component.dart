@@ -61,21 +61,23 @@ class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProv
   @override
   Widget build(BuildContext context) {
     return SafeArea( // Space below the phone's status bar
-      child: Scaffold(
-        backgroundColor: Color(0xff11BBAB), // Theme color
-        
-        appBar: appBar, // If its null, it ignores it
+      child: Material(
+        child: Scaffold(
+          backgroundColor: Color(0xff11BBAB), // Theme color
+          
+          appBar: appBar, // If its null, it ignores it
 
-        bottomNavigationBar: widget.bottomBar ? tabBar : null, // If not bottomBar, it ignores it (evaluates to null)
-                  
-        drawer: widget.drawer, // The Scaffold's [Drawer] widget, if any
+          bottomNavigationBar: widget.bottomBar ? tabBar : null, // If not bottomBar, it ignores it (evaluates to null)
+                    
+          drawer: widget.drawer, // The Scaffold's [Drawer] widget, if any
 
-        body: TabBarView( // Regardles of the position of the tabBar, the contents wont change
-          controller: controller,
-          children: widget.content.values.toList()
-        ) // TabBarView
+          body: TabBarView( // Regardles of the position of the tabBar, the contents wont change
+            controller: controller,
+            children: widget.content.values.toList()
+          ) // TabBarView
 
-      ) // Scaffold
+        ) // Scaffold
+      ) // Material
     ); // SafeArea
   }
 
