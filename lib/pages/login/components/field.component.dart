@@ -50,7 +50,7 @@ class _FieldComponentState extends State<FieldComponent> with SingleTickerProvid
   }
 
   @override
-  void dispose() { // To be executed once the component is destroyed (Free resources, avoid crash)
+  void dispose() { // To be executed once the component is destroyed (Free resources, avoid crash) - Only for animations
     fieldAnimationController.dispose();
     super.dispose();
   }

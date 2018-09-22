@@ -1,6 +1,9 @@
 // Flutter requirements
 import 'package:flutter/material.dart';
 
+// App Configuration standards
+import '../../../models/appconfig.model.dart';
+
 // Local components to be used
 import '../components/projecttag.component.dart';
 
@@ -41,7 +44,7 @@ class _FeedPageState extends State<FeedPage> {
                 onTap: this.showProjects,
                 child: Text('En Proceso',
                   style: TextStyle(
-                    color: Color(0xff11BBAB),
+                    color: AppConfig.appColors.strongCyan,
                     decoration: !onFinished ? TextDecoration.underline : TextDecoration.none,
                     fontSize: 25.0
                   )
@@ -51,7 +54,7 @@ class _FeedPageState extends State<FeedPage> {
                 onTap: this.showFinished,
                 child: Text('Finalizados',
                   style: TextStyle(
-                    color: Color(0xff11BBAB),
+                    color: AppConfig.appColors.strongCyan,
                     decoration: onFinished ? TextDecoration.underline : TextDecoration.none,
                     fontSize: 25.0
                   )

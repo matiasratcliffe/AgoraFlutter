@@ -60,6 +60,10 @@ class MyApp extends StatelessWidget {
     else // If there is one
       startPage = new HomePage(_token);
     
+    // DEBUG!!!!!!!!!!!!!!!!!
+    startPage = new HomePage(_token);
+    // DEBUG!!!!!!!!!!!!!!!!!
+
     return MaterialApp( // MaterialApp wrapper
       title: 'Agora', // The title presented to the phones app navigator
       home: startPage // The main Widget to redirect to (default)

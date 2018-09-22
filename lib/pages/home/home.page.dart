@@ -8,6 +8,7 @@ import '../../components/tabapp.component.dart';
 import './buscador/buscador.page.dart';
 import './trending/trending.page.dart';
 import './profile/profile.page.dart';
+import './dipsen/dipsen.page.dart';
 import './feed/feed.page.dart';
 import './tags/tags.page.dart';
 
@@ -30,10 +31,18 @@ class _HomePageState extends State<HomePage> {
     double iconSize = 40.0;
     
     return TabAppComponent(
+      // Sets the flag to move the navbar to the bottom
       bottomBar: true,
+
+      // [Profile] Manage profiledata, tags, logout
+      drawer: Drawer(
+        child: new ProfilePage()
+      ), // Drawer
+
+      // The different tabs
       content: {
-        // [Profile] Manage profiledata, tags, logout
-        new Icon(Icons.person, size: iconSize): new ProfilePage(),
+        // [Dipsen] Shows the setup of the parliament
+        new Icon(Icons.account_balance, size: iconSize): new DipsenPage(), 
 
         // [Tags] New projects that have one of your suscribed tags  
         new Icon(Icons.tags, size: iconSize): new TagsPage(),

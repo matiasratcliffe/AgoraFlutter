@@ -1,6 +1,9 @@
 // Flutter requierements
 import 'package:flutter/material.dart';
 
+// App Configuration standards
+import '../models/appconfig.model.dart';
+
 /// Creates a simple TabComponent app, associating each element in the [content] Map, with a Tab-Page pair, mapping the String keys of the map as buttons in the [AppBar], and the elements of the corresponding Widget List to the children of a preformatted [Column]
 class TabAppComponent extends StatefulWidget {
   
@@ -63,7 +66,7 @@ class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProv
     return SafeArea( // Space below the phone's status bar
       child: Material(
         child: Scaffold(
-          backgroundColor: Color(0xff11BBAB), // Theme color
+          backgroundColor: AppConfig.appColors.strongCyan, // Theme color
           
           appBar: appBar, // If its null, it ignores it
 
