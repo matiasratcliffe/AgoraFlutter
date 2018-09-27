@@ -45,7 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
           
             new Container(
               margin: EdgeInsets.symmetric(vertical: 50.0),
-              padding: EdgeInsets.symmetric(horizontal: 40.0),
+              padding: EdgeInsets.symmetric(horizontal: 30.0),
               child: new Column(
                 children: <Widget>[
                   new Align(alignment: Alignment.centerLeft, child: Text('Proyectos votados: 17', style: TextStyle(fontSize: 20.0))),

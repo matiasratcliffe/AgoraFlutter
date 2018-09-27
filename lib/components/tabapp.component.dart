@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 // App Configuration standards
 import '../models/appconfig.model.dart';
 
-/// Creates a simple TabComponent app, associating each element in the [content] Map, with a Tab-Page pair, mapping the String keys of the map as buttons in the [AppBar], and the elements of the corresponding Widget List to the children of a preformatted [Column]
+// Services
+import '../services/base.service.dart';
+
+/// Creates a simple TabComponent app, associating each element in the [content] Map, with a Tab-Page pair, mapping the Widget keys of the map as buttons in the [AppBar], and the elements of the corresponding Widget List to the children of a preformatted [Column]
 class TabAppComponent extends StatefulWidget {
-  
+
   /// The Scaffold's [Drawer] widget, if any
   final Drawer drawer;
 
@@ -19,7 +22,16 @@ class TabAppComponent extends StatefulWidget {
   /// A title to show on the top bar
   final Widget title;
 
-  TabAppComponent({@required this.content, this.drawer, this.bottomBar=false, this.title});
+  /// Unique Identifier
+  final Key key;
+
+  /// TabAppComponent constructor
+  TabAppComponent({@required this.content, this.drawer, this.bottomBar=false, this.title, this.key}) {
+    BaseService.log('TabAppComponent constructor called');
+  }
+
+  /// An auxiliary function to generate a global key while keeping the state class private
+  static GlobalKey<_TabAppComponentState> generateGlobalKey() => new GlobalKey<_TabAppComponentState>();
 
   @override
   _TabAppComponentState createState() => _TabAppComponentState(this.content, this.title, this.bottomBar);
@@ -28,7 +40,7 @@ class TabAppComponent extends StatefulWidget {
 /// The State of a [TabAppComponent]
 class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProviderStateMixin {
 
-  /// The controller for the [TabBar] in case [bottomBar] is enabled
+  /// The controller for the [TabBar]
   TabController controller;
 
   /// The [TabBar] to be used if [bottomBar] is enabled
@@ -36,9 +48,12 @@ class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProv
 
   /// The [AppBar] to be used if [bottomBar] is disabled
   AppBar appBar; // Auto-initializes to null
-
+    
   _TabAppComponentState(Map<Widget,Widget> content, Widget titleWidget, bool bottomBar) : super() {
+    BaseService.log('TabAppComponentState constructor called');
+    
     controller = new TabController(length: content.length, vsync: this); // To control the tab view [never used directly, but rather passed as a binding reference to the tabs' constructors]
+
     tabBar = new Container( // This is the definitive bar, no matter where I choose to put it later
       padding: EdgeInsets.symmetric(vertical: 5.0), // Distance between icons and bottom of phone
       child: TabBar( 
@@ -60,9 +75,17 @@ class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProv
         appBar = new AppBar(title: titleWidget);
     }
   }
-  
+
+  /// Adds callback to execute everytime the user slides between tabs
+  void addListener(VoidCallback listener) {
+    controller.addListener(listener);
+    BaseService.log('Added a listener to the TabAppController');
+  }
+
   @override
   Widget build(BuildContext context) {
+    BaseService.log('Building TabAppComponent'); // Debug message
+
     return SafeArea( // Space below the phone's status bar
       child: Material(
         child: Scaffold(
@@ -76,7 +99,7 @@ class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProv
 
           body: TabBarView( // Regardles of the position of the tabBar, the contents wont change
             controller: controller,
-            children: widget.content.values.toList()
+            children: widget.content.values.toList() // Gets the values of the Map passed to the constructor of TabAppComponent, and casts them into a list
           ) // TabBarView
 
         ) // Scaffold

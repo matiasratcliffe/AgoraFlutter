@@ -9,9 +9,12 @@ import 'package:flutter/material.dart';
 import './pages/login/login.page.dart';
 import './pages/home/home.page.dart';
 
-// Service wrapping static classes
+// Services
 import './services/base.service.dart';
 import './services/http.service.dart';
+
+// Apps Configuration
+import './models/appconfig.model.dart';
 
 /// Flag that determines the presense/absense of a valid persistent token
 bool _rememberUser = false;
@@ -66,7 +69,8 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp( // MaterialApp wrapper
       title: 'Agora', // The title presented to the phones app navigator
-      home: startPage // The main Widget to redirect to (default)
+      home: startPage, // The main Widget to redirect to (default)
+      theme: AppConfig.theme, // The Apps default theme
     );
   }
 }

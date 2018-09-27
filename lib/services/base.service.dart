@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 // Plugin requirements
 import 'package:path_provider/path_provider.dart';
 
+// Custom dependencies
+import '../customDependencies/colorize/colorize.dart';
+
 // Components to be used
 import '../components/alert.component.dart';
 import '../components/ask.component.dart';
@@ -15,6 +18,9 @@ import '../components/ask.component.dart';
 
 /// Static Class with a collection of handy methods
 class BaseService {
+
+  /// A General multipurpose variable buffer for the App
+  static Map<String, dynamic> appVars = Map<String, dynamic>();
 
   /// Retains the value of the last [dialogAsk] answer
   static bool _dialogAnswer = false;
@@ -44,14 +50,18 @@ class BaseService {
   // Debug methods
   /// Logs a message to the selected standard output (default is terminal)
   static void log(Object obj) {
-    if (BaseService._dev)
-      print("[DEV] " + obj.toString());
+    if (BaseService._dev) {
+      Colorize printOut = Colorize("[DEV] " + obj.toString());
+      print(printOut.bgBlue());
+    }
   }
 
   /// Logs a message to the selected standard error (default is terminal)
   static void error(Object obj) {
-    if (BaseService._dev)
-      print("[ERROR] " + obj.toString());
+    if (BaseService._dev) {
+      Colorize printOut = Colorize("[ERROR] " + obj.toString());
+      print(printOut.bgLightRed());
+    }
   }
   
   /// Pops up a dialog only if developer mode is active
