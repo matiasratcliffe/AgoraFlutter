@@ -1,6 +1,9 @@
 // Flutter requirements
 import 'package:flutter/material.dart';
 
+// App Configuration standards
+import '../../../models/appconfig.model.dart';
+
 // Services
 import '../../../services/base.service.dart';
 
@@ -29,14 +32,13 @@ class _ProfilePageState extends State<ProfilePage> {
             new Center(
               child: Icon(
                 Icons.account_circle,
-                color: Color(0xff11BBAB),
                 size: 200.0
               ) // Icon
             ), // Center
             new Center(
               child: Text('JUAN PEREZ\n   40 299343', 
                 style: TextStyle(
-                  color: Color(0xff11BBAB),
+                  color: AppConfig.appColors.strongCyan,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0
                 ),
@@ -63,7 +65,6 @@ class _ProfilePageState extends State<ProfilePage> {
               child: InkWell(
                 child: IconButton(
                   iconSize: 35.0,
-                  color: Color(0xff11BBAB),
                   icon: Icon(Icons.settings),
                   onPressed: () {
                     BaseService.dialogAsk(context, 'Que opinas?', 'Sos gay?');

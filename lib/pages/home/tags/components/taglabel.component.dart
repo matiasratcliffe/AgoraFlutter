@@ -1,6 +1,9 @@
 // Flutter requierements
 import 'package:flutter/material.dart';
 
+// App Configuration standards
+import '../../../../models/appconfig.model.dart';
+
 // Services
 import '../../../../services/base.service.dart';
 
@@ -24,22 +27,25 @@ class TagLabelComponent extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),//(left: 15.0, right: 15.0, bottom: 5.0, top: 5.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(50.0)),
-          border: Border.all(color: Color(0xff11BBAB), width: 2.0),
-        ),
+          border: Border.all(
+            color: AppConfig.appColors.strongCyan,
+            width: 2.0
+          ), // Border.all
+        ), // BoxDecoration
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(this.text,
               style: TextStyle(
-                color: Color(0xff11BBAB),
+                color: AppConfig.appColors.strongCyan,
                 fontSize: 25.0
-              )
-            ),
+              ) // TextStyle
+            ), // Text
             createDot() ?? Container()
-          ]
-        )
-      )
-    );
+          ] // <Widget>[]
+        ) // Row
+      ) // Container
+    ); // GestureDetector
   }
 
   Container createDot() {
@@ -55,14 +61,14 @@ class TagLabelComponent extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
-            color: Color(0xff11BBAB),
+            color: AppConfig.appColors.strongCyan,
             width: 6.0
           ), // Border.all
-          color: Color(0xff11BBAB)
+          color: AppConfig.appColors.strongCyan,
         ), // BoxDecoration
         child: Text('-',
           style: TextStyle(
-            color: Color(0xff11BBAB)
+            color: AppConfig.appColors.strongCyan,            
           ) // TextStyle
         ) // Text
       ) // Container

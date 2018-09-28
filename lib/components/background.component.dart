@@ -1,9 +1,6 @@
 // Flutter requeriments
 import 'package:flutter/material.dart';
 
-// App Configuration standards
-import '../models/appconfig.model.dart';
-
 /// Takes a list of elements, arranges them in a centered colum, and sets the selected asset as background
 class BackgroundComponent extends StatefulWidget {
   
@@ -46,7 +43,6 @@ class _BackgroundComponentState extends State<BackgroundComponent> with SingleTi
                 padding: EdgeInsets.all(20.0), // Inwards space
                 decoration: BoxDecoration( // For content border and background color
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  color: AppConfig.appColors.standardWhite
                 ), // BoxDecoration
                 child: Form(
                   child: Column( // Arrange the elements of the List passed to the constructor, vertically

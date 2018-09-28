@@ -55,7 +55,7 @@ class _BuscadorPageState extends State<BuscadorPage> {
                   borderRadius: BorderRadius.horizontal(right: Radius.circular(5.0))
                 ),
                 child: IconButton(
-                  icon: Icon(Icons.search),
+                  icon: Icon(Icons.search, color: Colors.black87),
                   iconSize: 39.0,
                   onPressed: (){},
                 )

@@ -1,9 +1,6 @@
 // Flutter requirements
 import 'package:flutter/material.dart';
 
-// App Configuration standards
-import '../models/appconfig.model.dart';
-
 /// A simple dismissable dialog widget consisting of a [title], a [message], and the [yesFunc] / [noFunc] callbacks
 class AskComponent extends StatelessWidget {
 
@@ -26,10 +23,10 @@ class AskComponent extends StatelessWidget {
           padding: EdgeInsets.all(22.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(2.0)),
-            color: AppConfig.appColors.grayWhite
+            color: Color(0xffE3E3E3)
           ), // BoxDecoraion
           child: Material( // To set the standard theme and font
-            color: AppConfig.appColors.grayWhite, // I was missing this, thats why the color of the center was lighter than that of the margin (defined a couple of lines above); Material asumes Pure white, instead of the prefered gray white
+            color: Color(0xffE3E3E3), // I was missing this, thats why the color of the center was lighter than that of the margin (defined a couple of lines above); Material asumes Pure white, instead of the prefered gray white
             child: Column( // To arrange the elements vertically
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -76,7 +73,7 @@ class AskComponent extends StatelessWidget {
                             fontSize: 18.0,
                             decoration: TextDecoration.none,
                             fontWeight: FontWeight.bold,
-                            color: AppConfig.appColors.azulMarino
+                            color: Color(0xff11BBAB)
                           ) // TextStyle
                         ) // Text
                       ) // Container
@@ -92,7 +89,7 @@ class AskComponent extends StatelessWidget {
                             fontSize: 18.0,
                             decoration: TextDecoration.none,
                             fontWeight: FontWeight.bold,
-                            color: AppConfig.appColors.azulMarino
+                            color: Color(0xff11BBAB)
                           ) // TextStyle
                         ) // Text
                       ) // Container

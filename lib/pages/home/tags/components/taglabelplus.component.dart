@@ -1,6 +1,9 @@
 // Flutter requierements
 import 'package:flutter/material.dart';
 
+// App Configuration standards
+import '../../../../models/appconfig.model.dart';
+
 // Services
 import '../../../../services/base.service.dart';
 
@@ -15,11 +18,14 @@ class TagLabelPlusComponent extends StatelessWidget {
         padding: EdgeInsets.all(13.0),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(color: Color(0xff11BBAB), width: 2.0),
-        ),
+          border: Border.all(
+            color: AppConfig.appColors.strongCyan,
+            width: 2.0
+          ), // Border.all
+        ), // BoxDecoration
         child: Text('+',
           style: TextStyle(
-            color: Color(0xff11BBAB),
+            color: AppConfig.appColors.strongCyan,
             fontSize: 25.0
           )
         )

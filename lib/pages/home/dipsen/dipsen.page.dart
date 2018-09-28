@@ -43,7 +43,9 @@ class _DipsenPageState extends State<DipsenPage> {
                   BaseService.log('Going to Diputados');
                   Navigator.push(context, MaterialPageRoute(builder: (context) => DipPage()));
                 },
-                child: Text('Diputados')
+                child: Text('Diputados',
+                  style: TextStyle(),
+                )
               )
             ),
             Padding(padding: EdgeInsets.symmetric(vertical: 20.0)),

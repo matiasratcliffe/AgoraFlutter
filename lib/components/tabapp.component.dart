@@ -1,9 +1,6 @@
 // Flutter requierements
 import 'package:flutter/material.dart';
 
-// App Configuration standards
-import '../models/appconfig.model.dart';
-
 // Services
 import '../services/base.service.dart';
 
@@ -23,7 +20,10 @@ class TabAppComponent extends StatefulWidget {
   final Widget title;
 
   /// Unique Identifier
-  final Key key;
+  final GlobalKey<_TabAppComponentState> key;
+
+  /// A secret stack to accumulate al the callback listeners that are set before the state is ready
+  final List<VoidCallback> _callbackStack = List<VoidCallback>();
 
   /// TabAppComponent constructor
   TabAppComponent({@required this.content, this.drawer, this.bottomBar=false, this.title, this.key}) {
@@ -35,6 +35,18 @@ class TabAppComponent extends StatefulWidget {
 
   @override
   _TabAppComponentState createState() => _TabAppComponentState(this.content, this.title, this.bottomBar);
+
+  /// Adds callback to execute everytime the user slides between tabs
+  void addListener(VoidCallback listener) { // If the state is not ready, it pushes the listener to a stack, and it is going to get added once the state is ready. If the state is ready, it just gets added. This behaviour is unknown for the outside of the class.
+    if (key.currentState == null) {
+      _callbackStack.add(listener);
+      BaseService.log('Added a listener to the callbackStack');
+    } else {
+      key.currentState.controller.addListener(listener);
+      BaseService.log('Added a listener to the TabAppController');
+    }
+  }
+
 }
 
 /// The State of a [TabAppComponent]
@@ -58,7 +70,6 @@ class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProv
       padding: EdgeInsets.symmetric(vertical: 5.0), // Distance between icons and bottom of phone
       child: TabBar( 
         indicatorPadding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: -1.0), // Reduce the indicator underline's horizontal length
-        indicatorColor: Color(0xff11BBAB), // no estoy seguro de esto WIP
         controller: controller,
         tabs: content.keys.toList()
       ) // TabBar
@@ -76,21 +87,19 @@ class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProv
     }
   }
 
-  /// Adds callback to execute everytime the user slides between tabs
-  void addListener(VoidCallback listener) {
-    controller.addListener(listener);
-    BaseService.log('Added a listener to the TabAppController');
-  }
-
   @override
   Widget build(BuildContext context) {
     BaseService.log('Building TabAppComponent'); // Debug message
 
+    // Empty the callbackStack into the controller
+    while(widget._callbackStack.length > 0) {
+      controller.addListener(widget._callbackStack[0]);
+      widget._callbackStack.removeAt(0);
+    }
+
     return SafeArea( // Space below the phone's status bar
       child: Material(
-        child: Scaffold(
-          backgroundColor: AppConfig.appColors.strongCyan, // Theme color
-          
+        child: Scaffold(          
           appBar: appBar, // If its null, it ignores it
 
           bottomNavigationBar: widget.bottomBar ? tabBar : null, // If not bottomBar, it ignores it (evaluates to null)

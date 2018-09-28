@@ -1,9 +1,6 @@
 // Flutter requierements
 import 'package:flutter/material.dart';
 
-// App Configuration standards
-import '../models/appconfig.model.dart';
-
 /// A simple dismissable dialog widget consisting of a [title] and a [message]
 class AlertComponent extends StatelessWidget {
 
@@ -22,10 +19,10 @@ class AlertComponent extends StatelessWidget {
           padding: EdgeInsets.all(22.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(2.0)),
-            color: AppConfig.appColors.grayWhite
+            color: Color(0xffE3E3E3)
           ), // BoxDecoration
           child: Material( // To set the standard theme and font
-            color: AppConfig.appColors.grayWhite, // I was missing this, thats why the color of the center was lighter than that of the margin (defined a couple of lines above); Material asumes Pure white, instead of the prefered gray white
+            color: Color(0xffE3E3E3), // I was missing this, thats why the color of the center was lighter than that of the margin (defined a couple of lines above); Material asumes Pure white, instead of the prefered gray white
             child: Column( // To arrange the elements vertically
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -61,7 +58,7 @@ class AlertComponent extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
-                          color: AppConfig.appColors.azulMarino
+                          color: Color(0xff11BBAB)
                         ) // TextStyle
                       ) // Text
                     ) // Container
