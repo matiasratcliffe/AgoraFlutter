@@ -13,15 +13,17 @@ import './pages/home/home.page.dart';
 import './services/base.service.dart';
 import './services/http.service.dart';
 
-// Apps Configuration
+// App Configuration standards
 import './models/appconfig.model.dart';
+
+//debugggsdfhsdl;fj;asdlfkj
+import './pages/home/dipsen/sen/sen.page.dart';
 
 /// Flag that determines the presense/absense of a valid persistent token
 bool _rememberUser = false;
 
 /// Buffer for the token, if any, to be passed to the [HomePage] constructor
 String _token = '';
-
 
 /// Main function
 void main() async {  
@@ -62,15 +64,15 @@ class MyApp extends StatelessWidget {
       startPage = new LoginPage();
     else // If there is one
       startPage = new HomePage(_token);
-    
-    // DEBUG!!!!!!!!!!!!!!!!!
-    startPage = new HomePage(_token);
-    // DEBUG!!!!!!!!!!!!!!!!!
+
+    // DEBUG!!!!!!!!!!!
+    startPage = SenPage();
+    // DEBUG!!!!!!!!!!!
 
     return MaterialApp( // MaterialApp wrapper
       title: 'Agora', // The title presented to the phones app navigator
       home: startPage, // The main Widget to redirect to (default)
-      theme: AppConfig.theme, // The Apps default theme
+      theme: AppConfig.theme(context) // The Apps default theme, extending material, not overriding
     );
   }
 }

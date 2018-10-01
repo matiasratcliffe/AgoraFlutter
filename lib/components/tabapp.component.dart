@@ -98,21 +98,18 @@ class _TabAppComponentState extends State<TabAppComponent> with SingleTickerProv
     }
 
     return SafeArea( // Space below the phone's status bar
-      child: Material(
-        child: Scaffold(          
-          appBar: appBar, // If its null, it ignores it
+      child: Scaffold(          
+        appBar: appBar, // If its null, it ignores it
 
-          bottomNavigationBar: widget.bottomBar ? tabBar : null, // If not bottomBar, it ignores it (evaluates to null)
-                    
-          drawer: widget.drawer, // The Scaffold's [Drawer] widget, if any
+        bottomNavigationBar: widget.bottomBar ? tabBar : null, // If not bottomBar, it ignores it (evaluates to null)
+                  
+        drawer: widget.drawer, // The Scaffold's [Drawer] widget, if any
 
-          body: TabBarView( // Regardles of the position of the tabBar, the contents wont change
-            controller: controller,
-            children: widget.content.values.toList() // Gets the values of the Map passed to the constructor of TabAppComponent, and casts them into a list
-          ) // TabBarView
-
-        ) // Scaffold
-      ) // Material
+        body: TabBarView( // Regardles of the position of the tabBar, the contents wont change
+          controller: controller,
+          children: widget.content.values.toList() // Gets the values of the Map passed to the constructor of TabAppComponent, and casts them into a list
+        ) // TabBarView
+      ) // Scaffold
     ); // SafeArea
   }
 

@@ -77,7 +77,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     BaseService.log('Building HomePage');
-
     return appComponent;
   }
 }

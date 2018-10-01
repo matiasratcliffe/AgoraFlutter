@@ -24,44 +24,45 @@ class _DipsenPageState extends State<DipsenPage> {
   
   @override
   Widget build(BuildContext context) {    
-    return Theme(
-      data: Theme.of(context).copyWith(
-        
-      ),
-      child: Container(
-        padding: EdgeInsets.only(left: 12.0, right: 15.0, bottom: 45.0, top: 40.0),
-        decoration: BoxDecoration(
-          color: Colors.white 
-        ), // BoxDecoration
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              child: RaisedButton(
-                onPressed:() {
-                  BaseService.log('Going to Diputados');
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => DipPage()));
-                },
-                child: Text('Diputados',
-                  style: TextStyle(),
-                )
-              )
-            ),
-            Padding(padding: EdgeInsets.symmetric(vertical: 20.0)),
-            Expanded(
-              child: RaisedButton(
-                onPressed:() {
-                  BaseService.log('Going to Senadores');
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SenPage()));
-                },
-                child: Text('Senadores')
+    return Container(
+      padding: EdgeInsets.only(left: 60.0, right: 60.0, bottom: 95.0, top: 90.0),
+      decoration: BoxDecoration(
+        color: Colors.white 
+      ), // BoxDecoration
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(
+            child: RaisedButton(
+              onPressed:() {
+                BaseService.log('Going to Diputados');
+                Navigator.push(context, MaterialPageRoute(builder: (context) => DipPage()));
+              },
+              child: Text('Diputados',
+                style: TextStyle(
+                  fontSize: 30.0
+                ),
               )
             )
-          ] // <Widget>[]
-        ) // Column
-      ) // Container
-    ); // Theme
+          ),
+          Padding(padding: EdgeInsets.symmetric(vertical: 50.0)),
+          Expanded(
+            child: RaisedButton(
+              onPressed:() {
+                BaseService.log('Going to Senadores');
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SenPage()));
+              },
+              child: Text('Senadores',
+                style: TextStyle(
+                  fontSize: 30.0
+                ),
+              )
+            )
+          )
+        ] // <Widget>[]
+      ) // Column
+    ); // Container
   }
 
 }

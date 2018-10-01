@@ -91,6 +91,15 @@ class BaseService {
     return ret;
   }
 
+  /// Wraps the child widget into a SafeArea with Material theme (can be extended)
+  static Widget materialWrap({@required Widget child}) {
+    return SafeArea(
+      child: Material(
+        child: child
+      ) // Material
+    ); // SafeArea
+  }
+
   // Utility methods
   /// Pops up a dialog with [title] and [message]
   static void alert(BuildContext context, String title, String message) {

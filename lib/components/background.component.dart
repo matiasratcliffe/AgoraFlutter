@@ -26,7 +26,7 @@ class _BackgroundComponentState extends State<BackgroundComponent> with SingleTi
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Material(
+      child: Material( // It doesnt work if it is not suited for Material
         child: Container( // For the background image
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -43,6 +43,7 @@ class _BackgroundComponentState extends State<BackgroundComponent> with SingleTi
                 padding: EdgeInsets.all(20.0), // Inwards space
                 decoration: BoxDecoration( // For content border and background color
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  color: Colors.white
                 ), // BoxDecoration
                 child: Form(
                   child: Column( // Arrange the elements of the List passed to the constructor, vertically

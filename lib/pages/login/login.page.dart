@@ -5,7 +5,7 @@ import 'dart:async';
 // Flutter requirements
 import 'package:flutter/material.dart';
 
-// Models
+// App Configuration standards
 import '../../models/appconfig.model.dart';
 
 // Services
@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
         // SUBMIT Button
         new ButtonComponent(
           disabled: isLoading || (disableSubmit && !isLoggingIn), // Disabled if Loading, or if its in register mode and disasbleSubmit is on (which means there is an invalid/incomplete field)
-          color: Color(0xff11BBAB),//Color(0xffCB1D00), // Redish
+          color: AppConfig.appColors.strongCyan,
           child: Text("SUBMIT", style: TextStyle(color: isLoading ? null : Colors.white)),
           onPressed: this.submit
         ), // ButtonComponent
@@ -153,6 +153,13 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
   /// Attempts to submit the currently active form
   void submit() async {
+
+    if (BaseService.dev && isLoggingIn && userFieldController.text == 'A') {
+      BaseService.log('Debug login, bypassing HTTP Requests...');
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage('xauth')), (route) => route == null);
+      return;
+    }
+
     dynamic res; // Scope Declaration for the 'res' variable
     isLoading = true; // Sets the flag
     this.setState((){}); // Resets state so as to rebuild, under the effect of isLoading: true
