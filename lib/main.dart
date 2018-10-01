@@ -16,9 +16,6 @@ import './services/http.service.dart';
 // App Configuration standards
 import './models/appconfig.model.dart';
 
-//debugggsdfhsdl;fj;asdlfkj
-import './pages/home/dipsen/sen/sen.page.dart';
-
 /// Flag that determines the presense/absense of a valid persistent token
 bool _rememberUser = false;
 
@@ -66,7 +63,7 @@ class MyApp extends StatelessWidget {
       startPage = new HomePage(_token);
 
     // DEBUG!!!!!!!!!!!
-    startPage = SenPage();
+    //startPage = SenPage();
     // DEBUG!!!!!!!!!!!
 
     return MaterialApp( // MaterialApp wrapper

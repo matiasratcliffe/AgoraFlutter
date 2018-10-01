@@ -23,8 +23,10 @@ class _SenPageState extends State<SenPage> {
       child: GridView.count(
         shrinkWrap: true,
         crossAxisCount: 5,
-        children: [DipsenBancaComponent(Colors.yellow,4), DipsenBancaComponent(Colors.purple,3), DipsenBancaComponent(Colors.blue,2),
-        DipsenBancaComponent(Colors.red,4), DipsenBancaComponent(Colors.green,7), DipsenBancaComponent(Colors.cyan,5)]
+        children: [
+          DipsenBancaComponent(Colors.yellow,4), DipsenBancaComponent(Colors.purple,3), DipsenBancaComponent(Colors.blue,2),
+          DipsenBancaComponent(Colors.red,4), DipsenBancaComponent(Colors.green,7), DipsenBancaComponent(Colors.cyan,5)
+        ]
       )
     );
   }

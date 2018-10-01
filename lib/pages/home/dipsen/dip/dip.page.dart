@@ -17,24 +17,37 @@ class DipPage extends StatefulWidget {
 /// The state of DipPage
 class _DipPageState extends State<DipPage> {
 
-  Widget generateBancasGrid() {
-    return DipsenBancaComponent();
+   Widget generateBancasGrid() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 15.0),
+      child: GridView.count(
+        shrinkWrap: true,
+        crossAxisCount: 5,
+        children: [
+          DipsenBancaComponent(Colors.yellow,4), DipsenBancaComponent(Colors.purple,3), DipsenBancaComponent(Colors.blue,2),
+          DipsenBancaComponent(Colors.red,4), DipsenBancaComponent(Colors.green,7), DipsenBancaComponent(Colors.cyan,5)
+        ]
+      )
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> children = [
+      Text('Diputados',style: TextStyle(fontSize: 30.0)),
+      DipsenGraphComponent(),
+      generateBancasGrid()
+    ];
+    
     return BaseService.materialWrap(
       child: Container(
-        padding: EdgeInsets.only(left: 15.0, right: 15.0, bottom: 10.0, top: 40.0),
+        padding: EdgeInsets.only(left: 35.0, right: 35.0, bottom: 80.0, top: 80.0),
         decoration: BoxDecoration(
           color: Colors.white 
         ), // BoxDecoration
         child: Column(
-          children: <Widget>[
-            Text('Diputados'),
-            DipsenGraphComponent(),
-            generateBancasGrid()
-          ],
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: children
         )
       )
     );
