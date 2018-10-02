@@ -22,6 +22,7 @@ class TagLabelComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => BaseService.alert(context, 'Selected Tag', this.text.toUpperCase()),
+      //onLongPress: ask for delete TODO:,
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10.0),
         padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),//(left: 15.0, right: 15.0, bottom: 5.0, top: 5.0),
