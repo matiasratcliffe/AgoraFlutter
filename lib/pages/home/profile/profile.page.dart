@@ -7,8 +7,16 @@ import '../../../models/appconfig.model.dart';
 // Services
 import '../../../services/base.service.dart';
 
+// Models to be used
+import '../../../models/user.model.dart';
+
 /// Check your data and adjust settings
 class ProfilePage extends StatefulWidget {
+
+  final User user;
+
+  ProfilePage(this.user);
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -36,13 +44,22 @@ class _ProfilePageState extends State<ProfilePage> {
               ) // Icon
             ), // Center
             new Center(
-              child: Text('JUAN PEREZ\n   40 299343', 
+              child: Text(widget.user.nombre, 
                 style: TextStyle(
-                  color: AppConfig.appColors.strongCyan,
+                  color: AppConfig.mainColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0
-                ),
-              ),
+                )
+              )
+            ),
+            new Center(
+              child: Text(widget.user.dni.toString(), 
+                style: TextStyle(
+                  color: AppConfig.mainColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0
+                )
+              )
             ),
           
             new Container(
@@ -50,13 +67,15 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: EdgeInsets.symmetric(horizontal: 30.0),
               child: new Column(
                 children: <Widget>[
-                  new Align(alignment: Alignment.centerLeft, child: Text('Proyectos votados: 17', style: TextStyle(fontSize: 20.0))),
+                  new Align(alignment: Alignment.centerLeft, child: Text('Proyectos votados: ${widget.user.count.favor + widget.user.count.contra}', style: TextStyle(fontSize: 20.0))),
                   new Padding(padding: EdgeInsets.all(4.0)),
-                  new Align(alignment: Alignment.centerLeft, child: Text('A favor: 10', style: TextStyle(fontSize: 20.0))),
+                  new Align(alignment: Alignment.centerLeft, child: Text('A favor: ${widget.user.count.favor}', style: TextStyle(fontSize: 20.0))),
                   new Padding(padding: EdgeInsets.all(4.0)),
-                  new Align(alignment: Alignment.centerLeft, child: Text('En contra: 7', style: TextStyle(fontSize: 20.0))),
+                  new Align(alignment: Alignment.centerLeft, child: Text('En contra: ${widget.user.count.contra}', style: TextStyle(fontSize: 20.0))),
                   new Padding(padding: EdgeInsets.all(4.0)),
-                  new Align(alignment: Alignment.centerLeft, child: Text('Finalizados: 13', style: TextStyle(fontSize: 20.0))),
+                  new Align(alignment: Alignment.centerLeft, child: Text('Subscriptos: ${widget.user.count.subscriptos}', style: TextStyle(fontSize: 20.0))),
+                  new Padding(padding: EdgeInsets.all(4.0)),
+                  new Align(alignment: Alignment.centerLeft, child: Text('Finalizados: ${widget.user.count.terminados}', style: TextStyle(fontSize: 20.0))),
                 ]
               )
             ),

@@ -4,23 +4,31 @@ import 'package:flutter/material.dart';
 // Components to be used
 import './components/chairman.component.dart';
 
+// Models
+import '../../models/party.model.dart';
+import '../../models/chairman.model.dart';
+
 // Services
 import '../../services/base.service.dart';
 
 /// Displays the members of the specified party
 class PartyPage extends StatelessWidget {
+
+  final Party party;
   
-  PartyPage();
+  PartyPage(this.party) {
+    BaseService.log('PartyPage constructor called');
+  }
 
   Widget generatePartyMembers() {
+    Chairman chairman = Chairman({'id':'1','nombre':'Sergio'}, this.party);
     return Container(
       child: GridView.count(
         shrinkWrap: true,
         crossAxisCount: 3,
         children: <Widget>[
-          ChairmanComponent('Adolf'), ChairmanComponent('Rudolf'), ChairmanComponent('Martin'),
-          ChairmanComponent('Heinrich'), ChairmanComponent('Hermann'), ChairmanComponent('Joseph'),
-          ChairmanComponent('Erich'), ChairmanComponent('Erwin')
+          ChairmanComponent(chairman), ChairmanComponent(chairman), ChairmanComponent(chairman),
+          ChairmanComponent(chairman), ChairmanComponent(chairman)
         ],
       )
     );
@@ -34,7 +42,7 @@ class PartyPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Text('Partido Nacional Socialista Obrero Argentino',
+            Text(this.party.nombre,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25.0,

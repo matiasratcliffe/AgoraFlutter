@@ -19,13 +19,13 @@ class TagLabelPlusComponent extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
-            color: AppConfig.appColors.strongCyan,
+            color: AppConfig.mainColor,
             width: 2.0
           ), // Border.all
         ), // BoxDecoration
         child: Text('+',
           style: TextStyle(
-            color: AppConfig.appColors.strongCyan,
+            color: AppConfig.mainColor,
             fontSize: 25.0
           )
         )

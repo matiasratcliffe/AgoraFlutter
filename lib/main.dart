@@ -16,15 +16,22 @@ import './services/http.service.dart';
 // App Configuration standards
 import './models/appconfig.model.dart';
 
+// Models to be used
+import './models/user.model.dart';
+
 /// Flag that determines the presense/absense of a valid persistent token
 bool _rememberUser = false;
 
 /// Buffer for the token, if any, to be passed to the [HomePage] constructor
 String _token = '';
 
+/// User data, in case there is a valid rememberme token
+User _user;
+
 /// Main function
 void main() async {  
   try {
+
     String filePath = (await BaseService.appDir).uri.path + 'remembertoken'; // Gets the full path of where the remembertoken file should be
     
     // Checking if the file exists in the given path, synchronously
@@ -39,6 +46,7 @@ void main() async {
       if ((await HttpService.post({'email': email, 'token': _token}, url: '')).statusCode == 200) { // The token is valid!
         BaseService.log('Token seems valid!');
         _rememberUser = true; // Sets the flag to redirect the main constructor from the [LoginPage] to the [HomePage]
+        _user = User(40299343,false,'JUAN CARPACCIO',{'MEDIOAMBIENTE':true,'EDUCACION':false},ProjectCount(10,7,20,13));
       }
     } else { // FILE INEXISTENT!
       BaseService.log('No token found!');
@@ -60,7 +68,7 @@ class MyApp extends StatelessWidget {
     if (!_rememberUser) // If there is no valid saved token
       startPage = new LoginPage();
     else // If there is one
-      startPage = new HomePage(_token);
+      startPage = new HomePage(_token, _user);
 
     // DEBUG!!!!!!!!!!!
     //startPage = SenPage();

@@ -1,6 +1,9 @@
 // Flutter requirements
 import 'package:flutter/material.dart';
 
+// Models
+import '../../../../models/party.model.dart';
+
 // Services
 import '../../../../services/base.service.dart';
 
@@ -18,14 +21,22 @@ class DipPage extends StatefulWidget {
 class _DipPageState extends State<DipPage> {
 
    Widget generateBancasGrid() {
+    var name = 'Partido Obrero';
+    var mapa = [
+      {'id':'1', 'nombre':'Sergio'},
+      {'id':'1', 'nombre':'Sergio'},
+      {'id':'1', 'nombre':'Sergio'},
+      {'id':'1', 'nombre':'Sergio'},
+      {'id':'1', 'nombre':'Sergio'},
+      {'id':'1', 'nombre':'Sergio'},
+    ];
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 15.0),
       child: GridView.count(
         shrinkWrap: true,
         crossAxisCount: 5,
         children: [
-          DipsenBancaComponent(Colors.yellow,4), DipsenBancaComponent(Colors.purple,3), DipsenBancaComponent(Colors.blue,2),
-          DipsenBancaComponent(Colors.red,4), DipsenBancaComponent(Colors.green,7), DipsenBancaComponent(Colors.cyan,5)
+          DipsenBancaComponent(Party(name, 'yellow', mapa)), DipsenBancaComponent(Party(name, 'green', mapa)), DipsenBancaComponent(Party(name, 'cyan', mapa)), DipsenBancaComponent(Party(name, 'blue', mapa))
         ]
       )
     );

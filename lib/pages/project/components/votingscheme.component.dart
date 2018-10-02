@@ -1,11 +1,22 @@
 // Flutter requirements
 import 'package:flutter/material.dart';
 
+// App Configuration standards
+import '../../../models/appconfig.model.dart';
+
+// Models
+import '../../../models/project.model.dart';
+
 // Services
 import '../../../services/base.service.dart';
 
 /// A wrapper for the voting machanism
 class VotingSchemeComponent extends StatefulWidget {
+
+  final Project project;
+
+  VotingSchemeComponent(this.project);
+
   @override
   _VotingSchemeComponentState createState() => _VotingSchemeComponentState();
 }
@@ -19,7 +30,7 @@ class _VotingSchemeComponentState extends State<VotingSchemeComponent> {
       child: Column( // Separate data from buttons vertically
         children: <Widget>[
           // Data
-          new Text('Votos: 12.678 Subs:14.215',
+          new Text('Votos: ${widget.project.favor + widget.project.against} Subs:${widget.project.subscribers}',
             style: TextStyle(
               fontSize: 15.0
             ), // TextStyle
@@ -33,7 +44,7 @@ class _VotingSchemeComponentState extends State<VotingSchemeComponent> {
               // Favor
               new IconButton(
                 icon: Icon(Icons.thumb_up),
-                color: Color(0xff11BBAB),
+                color: AppConfig.mainColor,
                 iconSize: 40.0,
                 onPressed: () => BaseService.alert(context, 'Titulo','El Mensaje para el usuario'),
               ), // IconButton
@@ -41,7 +52,7 @@ class _VotingSchemeComponentState extends State<VotingSchemeComponent> {
               // Against
               new IconButton(
                 icon: Icon(Icons.thumb_down),
-                color: Color(0xff11BBAB),
+                color: AppConfig.mainColor,
                 iconSize: 40.0,
                 onPressed: (){},
               ) // IconButton

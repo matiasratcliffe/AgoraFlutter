@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 // Services
 import '../../services/base.service.dart';
 
+// Models to be used
+import '../../models/user.model.dart';
+
 // General components to be used
 import '../../components/tabapp.component.dart';
 
@@ -21,7 +24,10 @@ class HomePage extends StatefulWidget {
   /// The session token to authenthicate further http requests
   final String token;
   
-  HomePage(this.token) {
+  /// The user that logged in
+  final User user;
+
+  HomePage(this.token, this.user) {
     BaseService.log('HomePage constructor called');
   }
 
@@ -42,6 +48,13 @@ class _HomePageState extends State<HomePage> {
   TabAppComponent appComponent;
 
   _HomePageState() {
+    BaseService.log('HomePageState constructor called');
+  }
+  
+  @override
+  void initState() {
+    BaseService.log('HomePageState initState called');
+    super.initState();
     appComponent = TabAppComponent(
       // Unique Identifier for later Widget handling
       key: tabAppKey,
@@ -49,14 +62,14 @@ class _HomePageState extends State<HomePage> {
       bottomBar: true,
       // [Profile] Manage profiledata, tags, logout
       drawer: Drawer(
-        child: new ProfilePage()
+        child: new ProfilePage(widget.user)
       ), // Drawer
       // The different tabs
       content: {
         // [Dipsen] Shows the setup of the parliament
         new Icon(Icons.account_balance, size: iconSize): new DipsenPage(), 
         // [Tags] New projects that have one of your suscribed tags  
-        new Icon(Icons.tags, size: iconSize): new TagsPage(),
+        new Icon(Icons.tags, size: iconSize): new TagsPage(widget.user.tags),
         // [Feed] New projects, suscribed projects updates, filter by...
         new Icon(Icons.cabinet, size: iconSize): new FeedPage(),
         // [Trending] Approved/rejected history, and popular projects
@@ -69,7 +82,7 @@ class _HomePageState extends State<HomePage> {
     appComponent.addListener(() { // Will execute everytime the user slides between tabs
       BaseService.log('Switched to tab: [' + tabAppKey.currentState.controller.index.toString() + ']');
       if (tabAppKey.currentState.controller.index != 4) {
-        //TODO:
+        //TODO: hide keyboard
       }
     });
   }

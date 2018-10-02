@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 // App Configuration standards
 import '../../../models/appconfig.model.dart';
 
+// Models
+import '../../../models/project.model.dart';
+
 // Local components to be used
 import '../components/projecttag.component.dart';
 
@@ -44,7 +47,7 @@ class _FeedPageState extends State<FeedPage> {
                 onTap: this.showProjects,
                 child: Text('En Proceso',
                   style: TextStyle(
-                    color: AppConfig.appColors.strongCyan,
+                    color: AppConfig.mainColor,
                     decoration: !onFinished ? TextDecoration.underline : TextDecoration.none,
                     fontSize: 25.0
                   )
@@ -54,7 +57,7 @@ class _FeedPageState extends State<FeedPage> {
                 onTap: this.showFinished,
                 child: Text('Finalizados',
                   style: TextStyle(
-                    color: AppConfig.appColors.strongCyan,
+                    color: AppConfig.mainColor,
                     decoration: onFinished ? TextDecoration.underline : TextDecoration.none,
                     fontSize: 25.0
                   )
@@ -76,24 +79,26 @@ class _FeedPageState extends State<FeedPage> {
 
   void showProjects() async {
     this.onFinished = false;
+    Project project = Project({'id':'1','favor':'17','against':'8','subscribers':'30','nombre':'Das Projekt','description':'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamco laboris nisi ut aliquid commodi consequat. Quis voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'});
     this.projectList = [
-      new ProjectTagComponent(),
-      new ProjectTagComponent(),
-      new ProjectTagComponent(),
-      new ProjectTagComponent(),
-      new ProjectTagComponent(),
+      new ProjectTagComponent(project),
+      new ProjectTagComponent(project),
+      new ProjectTagComponent(project),
+      new ProjectTagComponent(project),
+      new ProjectTagComponent(project),
     ];
     this.setState((){});
   }
 
   void showFinished() async {
     this.onFinished = true;
+    Project project = Project({'id':'1','favor':'17','against':'8','subscribers':'30','nombre':'Das Projekt','description':'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamco laboris nisi ut aliquid commodi consequat. Quis voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'});
     this.projectList = [
-      new ProjectTagComponent(),
-      new ProjectTagComponent(),
-      new ProjectTagComponent(),
-      new ProjectTagComponent(),
-      new ProjectTagComponent(),
+      new ProjectTagComponent(project),
+      new ProjectTagComponent(project),
+      new ProjectTagComponent(project),
+      new ProjectTagComponent(project),
+      new ProjectTagComponent(project),
     ];
     this.setState((){});
   }

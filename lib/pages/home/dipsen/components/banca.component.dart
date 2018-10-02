@@ -1,23 +1,24 @@
 // Flutter requirements
 import 'package:flutter/material.dart';
 
+// Models to be used
+import '../../../../models/party.model.dart';
+
 // Pages to navigate to
 import '../../../party/party.page.dart';
 
 class DipsenBancaComponent extends StatelessWidget {
 
-  final Color color;
+  final Party party;
 
-  final int cantidad;
-
-  DipsenBancaComponent([this.color=Colors.black, this.cantidad=0]);
+  DipsenBancaComponent(this.party);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       //onLongPress: show party name, TODO:
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => PartyPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => PartyPage(this.party)));
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -25,9 +26,9 @@ class DipsenBancaComponent extends StatelessWidget {
           Icon(
             Icons.person,
             size: 30.0,
-            color: this.color,
+            color: this.party.color,
           ),
-          Text(this.cantidad.toString())
+          Text(this.party.members.length.toString())
         ]
       )
     );

@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 // App Configuration standards
 import '../../models/appconfig.model.dart';
 
+// Models to be used
+import '../../models/user.model.dart';
+
 // Services
 import '../../services/http.service.dart';
 import '../../services/base.service.dart';
@@ -135,7 +138,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
         // SUBMIT Button
         new ButtonComponent(
           disabled: isLoading || (disableSubmit && !isLoggingIn), // Disabled if Loading, or if its in register mode and disasbleSubmit is on (which means there is an invalid/incomplete field)
-          color: AppConfig.appColors.strongCyan,
+          color: AppConfig.mainColor,
           child: Text("SUBMIT", style: TextStyle(color: isLoading ? null : Colors.white)),
           onPressed: this.submit
         ), // ButtonComponent
@@ -144,7 +147,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
         new ButtonComponent(
           disabled: isLoading, // Only disable if Loading
           child: Text(isLoggingIn ? "Register" : "Log In"),
-          onPressed: this.toggle
+          onPressed: this.toggle // In default color
         ) // ButtonComponent
 
       ] // <Widget>[]
@@ -156,7 +159,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
     if (BaseService.dev && isLoggingIn && userFieldController.text == 'A') {
       BaseService.log('Debug login, bypassing HTTP Requests...');
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage('xauth')), (route) => route == null);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage('xauth',User(40299343,false,'JUAN CARPACCIO',{'Medioambiente':true,'Educacion':false},ProjectCount(10,7,20,13)))), (route) => route == null);
       return;
     }
 
@@ -171,6 +174,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       if (res.statusCode != 200) // If the status code is not 200 (OK), something went wrong
         throw "Recieved status code: ${res.statusCode.toString()}"; // Throw text-exception to be handled below
       
+      User user; // TODO: build it from the response data, do i want it all? or just the basics?
+
       // If no exception was raised, prompt the user for 'remember me' option
       await BaseService.dialogAsk(context, 'Remember User', 'Do you wish for your credentials to be remembered?');
       if (BaseService.dialogAnswer == true) { // Check for the users answer [yes:true, no:false, dismiss:null]
@@ -178,7 +183,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       }
       
       // Navigate to the HomePage with the recieved x-auth token and deletes the LoginPage from the route stack (prevening accidental logouts)
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage(res.headers['x-auth'])), (route) => route == null);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage(res.headers['x-auth'], user)), (route) => route == null);
     } on TimeoutException { // If the request timed out
       BaseService.dAlert(context, 'Timeout', 'Submit timed out!');
     } catch(e) {

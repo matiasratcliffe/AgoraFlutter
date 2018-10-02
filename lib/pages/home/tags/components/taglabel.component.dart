@@ -13,15 +13,15 @@ class TagLabelComponent extends StatelessWidget {
   /// Flag indicating if there are updates on that tag
   final bool updates;
 
-  /// Text to be displayed in the label
-  final String text;
+  /// Tag name
+  final String name;
 
-  TagLabelComponent(this.text, {this.updates=false});
+  TagLabelComponent(this.name, [this.updates=false]);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => BaseService.alert(context, 'Selected Tag', this.text.toUpperCase()),
+      onTap: () => BaseService.alert(context, 'Selected Tag', this.name.toUpperCase()),
       //onLongPress: ask for delete TODO:,
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -29,16 +29,16 @@ class TagLabelComponent extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(50.0)),
           border: Border.all(
-            color: AppConfig.appColors.strongCyan,
+            color: AppConfig.mainColor,
             width: 2.0
           ), // Border.all
         ), // BoxDecoration
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(this.text,
+            Text(this.name,
               style: TextStyle(
-                color: AppConfig.appColors.strongCyan,
+                color: AppConfig.mainColor,
                 fontSize: 25.0
               ) // TextStyle
             ), // Text
@@ -62,14 +62,14 @@ class TagLabelComponent extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
-            color: AppConfig.appColors.strongCyan,
+            color: AppConfig.mainColor,
             width: 6.0
           ), // Border.all
-          color: AppConfig.appColors.strongCyan,
+          color: AppConfig.mainColor,
         ), // BoxDecoration
         child: Text('-',
           style: TextStyle(
-            color: AppConfig.appColors.strongCyan,            
+            color: AppConfig.mainColor,            
           ) // TextStyle
         ) // Text
       ) // Container

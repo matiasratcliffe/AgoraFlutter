@@ -1,15 +1,20 @@
 // Flutter requirements
 import 'package:flutter/material.dart';
 
+// Models
+import '../../models/project.model.dart';
+
 // Local components to be used
 import './components/votingscheme.component.dart';
 import './components/projectstate.component.dart';
 
-// Services
-//import '../../services/base.service.dart';
-
 /// A Page to present a full project
 class ProjectPage extends StatefulWidget {
+
+  final Project project;
+
+  ProjectPage(this.project);
+
   @override
   _ProjectPageState createState() => _ProjectPageState();
 }
@@ -27,7 +32,7 @@ class _ProjectPageState extends State<ProjectPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween, // Spread elements vertically
             children: <Widget>[
               // Title
-              new Text('Ley para la prevencion...',
+              new Text(widget.project.nombre,
                 style: TextStyle(
                   fontSize: 20.0,
                   color: Color(0xff11BBAB), // Ocean Blue
@@ -39,16 +44,16 @@ class _ProjectPageState extends State<ProjectPage> {
                 margin: EdgeInsets.only(top: 25.0),
                 padding: EdgeInsets.all(20.0),
                 decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 2.0)),
-                child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamco laboris nisi ut aliquid commodi consequat. Quis voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                child: Text(widget.project.description,
                   textAlign: TextAlign.justify,
                 ) // Text
               ), // Container
 
               // A wrapper for the voting machanism
-              new VotingSchemeComponent(),
+              new VotingSchemeComponent(widget.project),
               
               // A wrapper to present the state graph of a [Project]
-              new ProjectStateComponent()
+              new ProjectStateComponent(widget.project)
             ], // <Widget>[]
           ), // Column
         ) // Container

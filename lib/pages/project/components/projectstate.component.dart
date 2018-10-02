@@ -1,8 +1,16 @@
 // Flutter requirements
 import 'package:flutter/material.dart';
 
+// Models
+import '../../../models/project.model.dart';
+
 /// A wrapper to present the state graph of a [Project]
 class ProjectStateComponent extends StatefulWidget {
+
+  final Project project;
+
+  ProjectStateComponent(this.project);
+
   @override
   _ProjectStateComponentState createState() => _ProjectStateComponentState();
 }
